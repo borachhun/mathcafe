@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>theQuadraticEquationCalculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<script>
+function cal() {
+	var a = document.getElementById("aIn").value;
+	var b = document.getElementById("bIn").value;
+	var c = document.getElementById("cIn").value;
+	var delta = (b**2)-(4*a*c);
+	var x1 = (((-1)*b)+((delta)**(1/2)))/(2*a);
+	var x2 = (((-1)*b)-((delta)**(1/2)))/(2*a);
+	if (a == "" || b == "" || c == "") {
+		document.getElementById("err").innerHTML = "> The coefficients are not given!";
+		document.getElementById("err").style.display = "block";
+		document.getElementById("result").style.display = "none";
+		return false;
+	} else if (isNaN(a) || isNaN(b) || isNaN(c)) {
+		document.getElementById("err").innerHTML = "> Your inputs are not numbers!";
+		document.getElementById("err").style.display = "block";
+		document.getElementById("result").style.display = "none";
+		return false;
+	} else if (a == 0) {
+		document.getElementById("err").innerHTML = "> The coefficient of x<sup>2</sup> must be different from zero!";
+		document.getElementById("err").style.display = "block";
+		document.getElementById("result").style.display = "none";
+		return false;
+	} else if (delta == 0) {
+		document.getElementById("delta").innerHTML = delta;
+		document.getElementById("root").innerHTML = "x<sub>1</sub> = x<sub>2</sub> = "+x1;
+		document.getElementById("err").style.display = "none";
+		document.getElementById("result").style.display = "block";
+	} else if (delta < 0) {
+		var deltaIm = delta * (-1);
+		var rePart = ((-1)*b)/(2*a);
+		var imPart1 = ((deltaIm)**(1/2))/(2*a);
+		var imPart2 = ((-1)*((deltaIm)**(1/2)))/(2*a);
+		document.getElementById("delta").innerHTML = delta;
+		document.getElementById("root").innerHTML = "x<sub>1</sub> = "+rePart+" + ("+imPart1+")i"+"<br>x<sub>2</sub> = "+rePart+" + ("+imPart2+")i";
+		document.getElementById("err").style.display = "none";
+		document.getElementById("result").style.display = "block";
+	} else {
+		document.getElementById("delta").innerHTML = delta;
+		document.getElementById("root").innerHTML = "x<sub>1</sub> = "+x1+"<br>x<sub>2</sub> = "+x2;
+		document.getElementById("err").style.display = "none";
+		document.getElementById("result").style.display = "block";
+	}
+}
+function about() {
+	var ab = document.getElementById("aboutHide");
+	if (ab.style.display === "none") {
+		ab.style.display = "block";
+	} else {
+		ab.style.display = "none";
+	}
+}
+</script>
+<style>
+@font-face {
+	font-family: cmuRoman;
+	src: url(font/cmuRoman.ttf);
+}
+@font-face {
+	font-family: cmuBold;
+	src: url(font/cmuBold.ttf);
+}
+@font-face {
+	font-family: cmuItalic;
+	src: url(font/cmuItalic.ttf);
+}
+@font-face {
+	font-family: khmerosContent;
+	src: url(font/khmerosContent.ttf);
+}
+body {
+	font-family: cmuRoman;
+	font-size: 20px;
+	padding: 20px 20px 20px 20px;
+	min-width: 720px;
+}
+.heading {
+	font-family: cmuBold;
+	font-size: 32px;
+	padding: 0px 0px 10px 0px;
+	color: #3F5B9A;
+}
+#aIn, #bIn, #cIn {
+	width: 35px;
+	height: 35px;
+	font-size: 26px;
+	font-family: cmuRoman;
+	text-align: center;
+	border-radius: 10px;
+	border-width: 0px;
+	background-color: #f2f2f2;
+}
+.eq {
+	font-size: 26px
+}
+.calBut {
+	padding: 20px 0px 20px 0px;
+}
+.submit {
+	height: 40px;
+	width: 135px;
+	font-family: cmuBold;
+	font-size: 20px;
+	border-width: 0px;
+	border-radius: 25px;
+	background-color: #3F5B9A;
+	color: #ffffff;
+}
+.submit:hover {
+	cursor: pointer;
+}
+#result {
+	display: none;
+	padding: 0px;
+}
+.result1 {
+	padding: 10px 20px 10px 20px;
+	background-color: #3F5B9A;
+	color: #ffffff;
+	border-radius: 20px 20px 0px 0px;
+	border-width: 0px; 
+	font-family: cmuBold;
+}
+.result2 {
+	padding: 10px 20px 10px 20px;
+	border-radius: 0px 0px 20px 20px;
+	border-width: 0px;
+	background-color: rgba(63,91,154,.32);
+}
+.aboutBut {
+	font-family: cmuBold;
+	text-decoration: underline;
+	color: #000000;
+}
+.aboutBut:hover {
+	cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+  
+<div class="heading">theQuadraticEquationCalculator</div>
+
+<div>
+To solve a quadratic equation, please input the coefficients a, b and c below:<br>
+Equation:
+<span class="eq">
+	<input id="aIn" type="text" placeholder="a">x<sup>2</sup> + 
+	<input id="bIn" type="text" placeholder="b">x + 
+	<input id="cIn" type="text" placeholder="c"> = 0
+</span>
+</div>
+
+<div class="calBut">
+<button class="submit" onclick="cal()">Calculate</button><br>
+</div>
+
+<div id="err"></div>
+
+<div id="result">
+<div class="result1">Calculations</div>
+<div class="result2">
+<span>Discriminant: Δ = <span id="delta"></span></span><br>
+<span id="root"></span>
+</div>
+</div>
+
+<div><br>
+<span style="float:left">
+<span style="font-family:cmuBold;">EN</span> | <a href="kh.html" style="text-decoration:underline; color:#000000; font-family:khmerosContent;">ខ្មែរ</a>
+</span>
+<span style="float:right; text-align:right;">
+<a onClick="about()" class="aboutBut">About</a><br>
+<span id="aboutHide" style="display:none; font-family: cmuItalic;">a calculator by <b>Borachhun</b><br>© 2020</span>
+</span>
+</div>
+
+</body>
+
+</html>
